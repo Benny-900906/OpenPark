@@ -112,10 +112,6 @@ const App = () => {
 
 
 
-
-
-
-
   // filter validParkingIDs and return spots with SpotStatus == 2
   const filterAvailableParkingSpots = async (city: string, validParkingSpots: Array<ParkingSpot>) : Promise<Array<ParkingSpot>> => {
     if (accessToken) {
@@ -151,10 +147,6 @@ const App = () => {
   }
 
 
-
-
-
-
   const testFunc = async () => {
     const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(22.9833100, 120.2193929, 500);
 
@@ -162,9 +154,12 @@ const App = () => {
 
     const availableParkingSpots : Array<ParkingSpot> = await filterAvailableParkingSpots("Tainan", validParkingSpots);
 
+    const lat = availableParkingSpots[0].position.latitude;
+    const lon = availableParkingSpots[0].position.longtitude;
+    const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+    window.open(url, '_blank');
+
   }
-
-
 
 
   return (

@@ -1,13 +1,10 @@
 import axios from "axios";
-// require("config.env");
-
-// const clientId = process.env.TDX_CLIENT_ID!;
-// const clientSecret = process.env.TDX_CLIENT_SECRET!;
 
 export const getAccessToken = async (): Promise<string> => {
-    const clientId = "benny900906-5bdad2d3-0ccc-44c0";
-    const clientSecret= "972c014f-8506-4db7-af93-3789c77443ad";
-    const url = 'https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token';
+    const clientId : string = process.env.REACT_APP_TDX_CLIENT_ID!;
+    const clientSecret : string = process.env.REACT_APP_TDX_CLIENT_SECRET!;
+    const url : string = process.env.REACT_APP_TDX_TOKEN_URL!;
+
   
     const params = new URLSearchParams();
     params.append('grant_type', 'client_credentials');
