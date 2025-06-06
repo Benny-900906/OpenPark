@@ -28,7 +28,7 @@ export const Map = ({ availableParkingSpots } : { availableParkingSpots? : Array
 
   return (
     <div className="w-full flex justify-center">
-      <MapContainer center={[userPosition.lat, userPosition.lon]} scrollWheelZoom={true} zoom={18} minZoom={16} style={{ height: '80vh', width: '70%' }}>
+      <MapContainer center={[userPosition.lat, userPosition.lon]} scrollWheelZoom={true} zoom={18} minZoom={16} style={{ height: '80vh', width: '100%' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
