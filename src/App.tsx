@@ -36,7 +36,7 @@ const App = () => {
 
     setLoading(true);
 
-    const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, 300);
+    const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, 200);
 
     const validParkingSpots : Array<ParkingSpot> = await getValidParkingSpots(accessToken, "Tainan", nearBySpotPositions);
 
@@ -50,7 +50,6 @@ const App = () => {
 
     // return availableParkingSpots;
   }
-
 
   return (
     <div className="flex flex-col gap-10 items-center justify-center">
@@ -86,6 +85,8 @@ implenent marker pinning and onclick to redirect to google maps
 
 
 需要完成的事
+
+implement "update my current geolocation button below recenter feature"
 
 error handling, 如果fetch不到結果的話 display on UI
 
