@@ -67,11 +67,6 @@ export default App;
 
 
 
-
-
-
-
-
 /* 
 完成的事
 
@@ -92,8 +87,14 @@ implenent marker pinning and onclick to redirect to google maps
 
 需要完成的事
 
-calculate distance, implement small cards for each parking spot
+error handling, 如果fetch不到結果的話 display on UI
+
+UI
+- inputText
+- submit button
+- reset button
+
+calculate distance, implement small cards for each parking spot at the bottom of the map <ScrollView>
 
 完成後開始implement 手機版 RN + EXPO
-
 */
