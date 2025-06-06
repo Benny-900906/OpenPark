@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/parking/static/css/main.bc50efd7.css",
+    "main.js": "/parking/static/js/main.82f3fa4f.js",
+    "static/media/custom-spot-marker.svg": "/parking/static/media/custom-spot-marker.61a64e6be01922f30be39a13592ae80c.svg",
+    "index.html": "/parking/index.html",
+    "static/media/custom-recenter.svg": "/parking/static/media/custom-recenter.dd3e82fd1f118bbd54ca15f41540b6fb.svg",
+    "main.bc50efd7.css.map": "/parking/static/css/main.bc50efd7.css.map",
+    "main.82f3fa4f.js.map": "/parking/static/js/main.82f3fa4f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bc50efd7.css",
+    "static/js/main.82f3fa4f.js"
+  ]
+}
