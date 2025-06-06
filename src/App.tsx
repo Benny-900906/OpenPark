@@ -36,7 +36,7 @@ const App = () => {
 
     setLoading(true);
 
-    const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, 500);
+    const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, 300);
 
     const validParkingSpots : Array<ParkingSpot> = await getValidParkingSpots(accessToken, "Tainan", nearBySpotPositions);
 
@@ -86,14 +86,14 @@ export default App;
 取得 ParkingSpotIDs 之後，來這裡 filter SpotStatus == 2 
 回傳結果
 
-
-
-接下來要做的事：
-
 研究 leaflet or openlayer 比較適合這個專案
 implenent marker pinning and onclick to redirect to google maps
+
+
+需要完成的事
 
 calculate distance, implement small cards for each parking spot
 
 完成後開始implement 手機版 RN + EXPO
+
 */

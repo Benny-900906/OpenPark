@@ -6,7 +6,6 @@ import { create } from 'zustand';
 import { getAccessToken } from '../lib/tdxServices';
 import { AuthState } from '../interfaces';
 
-
 // access token
 export const useAuthStore = create<AuthState>((set) => ({
   token: sessionStorage.getItem('access_token'),
