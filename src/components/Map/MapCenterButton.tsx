@@ -1,5 +1,5 @@
 import { useMap } from "react-leaflet";
-import recenterIcon from '../../assets/recenter.svg';
+import recenterIcon from '../../assets/custom-recenter.svg';
 
 export const MapCenterButton = ({ position }: {position: [number, number]}) => {
     const map = useMap();

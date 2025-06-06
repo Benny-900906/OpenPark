@@ -1,14 +1,5 @@
 import axios from "axios";
-
-interface Position {
-  latitude: number;
-  longitude: number;
-}
-
-interface ParkingSpot {
-  parkingSpotID : string;
-  position : Position;
-}
+import { Position, ParkingSpot } from "../interfaces";
   
 // helper function
 // this function fetches all parking spots around specified lat and lon
@@ -26,7 +17,7 @@ export const getNearBySpotPositions = async (accessToken: string | null, lat: nu
     if (res) {
 
       // extract nearby parking spots' (lat, lon)
-      const nearBySpotPositions : Array<Position> = res.data?.map((spot : any) => {return {latitude: spot.Position.PositionLat, longitude: spot.Position.PositionLon}});
+      const nearBySpotPositions : Array<Position> = res.data?.map((spot : any) => {return {lat: spot.Position.PositionLat, lon: spot.Position.PositionLon}});
         
       console.log(nearBySpotPositions);
 
@@ -49,7 +40,7 @@ export const getNearBySpotPositions = async (accessToken: string | null, lat: nu
 export const getValidParkingSpots = async (accessToken: string | null, city: string, spotPositions: Array<Position>) : Promise<Array<ParkingSpot>> => {
   if (accessToken) {
 
-    const encodedFilter : string = spotPositions.map(position => `Position/PositionLat eq ${position.latitude} and Position/PositionLon eq ${position.longitude}`).join(' or ');
+    const encodedFilter : string = spotPositions.map(position => `Position/PositionLat eq ${position.lat} and Position/PositionLon eq ${position.lon}`).join(' or ');
 
     const res = await axios.get(`https://tdx.transportdata.tw/api/basic/v1/Parking/OnStreet/ParkingSpot/City/${city}`
     + `?$filter=${encodedFilter}` , {
@@ -61,7 +52,7 @@ export const getValidParkingSpots = async (accessToken: string | null, city: str
     if (res) {
 
        // extract valid parkingSpotID + positions, given nearby parking spots' (lat, lon)
-      const validParkingSpots : Array<ParkingSpot> = res.data?.ParkingSegmentSpots.map((spot : any) => {return {parkingSpotID: spot.ParkingSpotID, position: {latitude: spot.Position.PositionLat, longtitude: spot.Position.PositionLon}}});
+      const validParkingSpots : Array<ParkingSpot> = res.data?.ParkingSegmentSpots.map((spot : any) => {return {parkingSpotID: spot.ParkingSpotID, position: {lat: spot.Position.PositionLat, lon: spot.Position.PositionLon}}});
 
       console.log(validParkingSpots);
 

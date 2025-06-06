@@ -4,23 +4,15 @@ import { useEffect } from 'react';
 import { Map } from './components/Map/Map';
 import { usePositionStore } from './stores/usePositionStore';
 import { getNearBySpotPositions, getValidParkingSpots, filterAvailableParkingSpots } from './lib/parkingSpotServices';
+import { Position, ParkingSpot } from './interfaces';
  
 const TOKEN_REFRESH_INTERVAL = 4 * 60 * 60 * 1000; // 4 hours auto refetch access token from tdx
 
 const App = () => {
-  interface Position {
-    latitude: number;
-    longitude: number;
-  }
-
-  interface ParkingSpot {
-    parkingSpotID : string;
-    position : Position;
-  }
-
   const [loading, setLoading] = useState<boolean>(false);
   const fetchToken = useAuthStore((state) => state.fetchToken);
   const accessToken = useAuthStore.getState().token;
+  const [avaliableParkingSpots, setAvaliableParkingSpots] = useState<Array<ParkingSpot>>([]);
 
   useEffect(() => {
     // Fetch token on mount
@@ -35,7 +27,7 @@ const App = () => {
   }, [fetchToken]);
   
 
-  const getNearByAvailableParkingSpots = async () : Promise<Array<ParkingSpot>> => {
+  const handleNearByAvailableParkingSpots = async () => {
 
     const { userPosition } = usePositionStore.getState(); // fetches the freshes userPosition from usePositionStore. 
 
@@ -54,7 +46,9 @@ const App = () => {
 
     console.log(availableParkingSpots);
 
-    return availableParkingSpots;
+    setAvaliableParkingSpots(availableParkingSpots);
+
+    // return availableParkingSpots;
   }
 
 
@@ -62,13 +56,15 @@ const App = () => {
     <div className="flex flex-col gap-10 items-center justify-center">
       {/* <button onClick={() => fetchNearByParkingSpots(22.9894391, 120.1844143, 500)}>Show Near By Parking Data</button>
       <button onClick={() => filterAvailableParkingSpots("Tainan", [])}>Show Parking Data</button> */}
-      <button onClick={getNearByAvailableParkingSpots}>Test</button>
-      <Map />
+      <button onClick={handleNearByAvailableParkingSpots}>Test</button>
+      <Map availableParkingSpots={avaliableParkingSpots} />
     </div>
   );
 }
 
 export default App;
+
+
 
 
 

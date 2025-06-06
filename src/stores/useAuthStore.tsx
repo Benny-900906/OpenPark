@@ -4,13 +4,10 @@
 // accessToken gets updated every 4 hours (logic in App.tsx)
 import { create } from 'zustand';
 import { getAccessToken } from '../lib/tdxServices';
+import { AuthState } from '../interfaces';
 
-interface AuthState {
-  token: string | null;
-  setToken: (token: string) => void;
-  fetchToken: () => Promise<void>;
-}
 
+// access token
 export const useAuthStore = create<AuthState>((set) => ({
   token: sessionStorage.getItem('access_token'),
 
