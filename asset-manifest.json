@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/parking/static/css/main.bc50efd7.css",
-    "main.js": "/parking/static/js/main.c04b2f10.js",
+    "main.css": "/parking/static/css/main.8432a74f.css",
+    "main.js": "/parking/static/js/main.f59f605d.js",
+    "static/media/custom-recenter.svg": "/parking/static/media/custom-recenter.46caca13cecbbf504b064677024b3811.svg",
     "static/media/custom-spot-marker.svg": "/parking/static/media/custom-spot-marker.61a64e6be01922f30be39a13592ae80c.svg",
     "index.html": "/parking/index.html",
-    "static/media/custom-recenter.svg": "/parking/static/media/custom-recenter.dd3e82fd1f118bbd54ca15f41540b6fb.svg",
-    "main.bc50efd7.css.map": "/parking/static/css/main.bc50efd7.css.map",
-    "main.c04b2f10.js.map": "/parking/static/js/main.c04b2f10.js.map"
+    "static/media/custom-user-location.svg": "/parking/static/media/custom-user-location.618957b832a51969f2793e5f30388a8c.svg",
+    "main.8432a74f.css.map": "/parking/static/css/main.8432a74f.css.map",
+    "main.f59f605d.js.map": "/parking/static/js/main.f59f605d.js.map"
   },
   "entrypoints": [
-    "static/css/main.bc50efd7.css",
-    "static/js/main.c04b2f10.js"
+    "static/css/main.8432a74f.css",
+    "static/js/main.f59f605d.js"
   ]
 }
