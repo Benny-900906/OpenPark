@@ -5,7 +5,6 @@ export const getAccessToken = async (): Promise<string> => {
     const clientSecret : string = process.env.REACT_APP_TDX_CLIENT_SECRET!;
     const url : string = process.env.REACT_APP_TDX_TOKEN_URL!;
 
-  
     const params = new URLSearchParams();
     params.append('grant_type', 'client_credentials');
     params.append('client_id', clientId);
