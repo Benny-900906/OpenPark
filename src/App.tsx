@@ -53,9 +53,7 @@ const App = () => {
 
   return (
     <div className="flex flex-col gap-10 items-center justify-center">
-      {/* <button onClick={() => fetchNearByParkingSpots(22.9894391, 120.1844143, 500)}>Show Near By Parking Data</button>
-      <button onClick={() => filterAvailableParkingSpots("Tainan", [])}>Show Parking Data</button> */}
-      <button onClick={handleNearByAvailableParkingSpots}>Test</button>
+      <button className="absolute z-[999] text-white top-6 px-8 py-2 bg-white hover:bg-gray-300 text-black rounded-lg font-semibold" onClick={handleNearByAvailableParkingSpots}>開始尋找附近停車格</button>
       <Map availableParkingSpots={avaliableParkingSpots} />
     </div>
   );
@@ -107,7 +105,7 @@ UI
 
 buttons 設立在 test 旁邊看是要找 停車場（價錢，時間） 還是 路邊停車格
 
-請求冷卻 5-10s （random設定）
+請求冷卻 60s （random設定）
 
 計算user 或是 marker 經緯度是在哪一個城市，在function中投入相對的City Props
 
