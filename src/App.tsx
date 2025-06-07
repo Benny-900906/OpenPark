@@ -53,7 +53,7 @@ const App = () => {
 
   return (
     <div className="flex flex-col gap-10 items-center justify-center">
-      <button className="absolute z-[999] text-white top-6 px-8 py-2 bg-white hover:bg-gray-300 text-black rounded-lg font-semibold" onClick={handleNearByAvailableParkingSpots}>開始尋找附近停車格</button>
+      <button className="absolute z-[999] text-black top-6 px-8 py-2 bg-white hover:bg-gray-300 text-black rounded-lg font-semibold" onClick={handleNearByAvailableParkingSpots}>開始尋找附近停車格</button>
       <Map availableParkingSpots={avaliableParkingSpots} />
     </div>
   );
@@ -90,6 +90,12 @@ implement "update my current geolocation button below recenter feature"
 
 
 需要完成的事
+
+停車格資訊： 車位類型，收費時段，費率，營業時間
+
+FIRST PRIORITTY: Responsive UI for iPhones
+
+電動車用戶 filter
 
 UI 上要 report 獲取多少筆停車格動態
 click on marker 後 pop up 變成一張vertical card 顯示在左下角 （有點像google card那樣）
