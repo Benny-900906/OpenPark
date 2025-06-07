@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuthStore } from './stores/useAuthStore';
 import { useEffect } from 'react';
 import { Map } from './components/Map/Map';
 import { usePositionStore } from './stores/usePositionStore';
 import { getNearBySpotPositions, getValidParkingSpots, filterAvailableParkingSpots } from './lib/parkingSpotServices';
 import { Position, ParkingSpot } from './interfaces';
+import { useLoadingStore } from './stores/useLoadingStore';
+import { useRequestingTokenStore } from './stores/useRequestingTokenStore';
+import { useSearchingStore } from './stores/useSearchingStore';
  
 const TOKEN_REFRESH_INTERVAL = 4 * 60 * 60 * 1000; // 4 hours auto refetch access token from tdx
 
 const App = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const { loading, setLoading } = useLoadingStore();
+  const { requestingToken } = useRequestingTokenStore.getState();
+  const { searching, setSearching } = useSearchingStore();
   const fetchToken = useAuthStore((state) => state.fetchToken);
   const accessToken = useAuthStore.getState().token;
   const [avaliableParkingSpots, setAvaliableParkingSpots] = useState<Array<ParkingSpot>>([]);
@@ -35,6 +40,7 @@ const App = () => {
     console.log(userPosition.lon);
 
     setLoading(true);
+    setSearching(true);
 
     const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, 200);
 
@@ -43,26 +49,37 @@ const App = () => {
     const availableParkingSpots : Array<ParkingSpot> = await filterAvailableParkingSpots(accessToken, "Tainan", validParkingSpots);
 
     setLoading(false);
+    setSearching(false);
 
     console.log(availableParkingSpots);
 
     setAvaliableParkingSpots(availableParkingSpots);
-
-    // return availableParkingSpots;
   }
 
   return (
     <div className="flex flex-col gap-10 items-center justify-center">
-      <button className="absolute z-[999] text-black top-6 self-start ml-4 md:self-center px-4 md:px-8 py-4 bg-white hover:bg-gray-300 text-black rounded-lg font-semibold text-sm md:text-lg" onClick={handleNearByAvailableParkingSpots}>搜尋附近停車格</button>
+      {
+        loading ? (
+          <div className="absolute inset-0 z-[999] bg-white/60 backdrop-blur-sm opacity-50 flex flex-col gap-2 items-center justify-center">
+            <div className="animate-spin rounded-full h-16 md:h-32 w-16 md:w-32 border-t-8 border-white"></div>
+            {
+              requestingToken ? <h2 className="text-lg font-semibold">正在取得憑證, 請稍候 ...</h2> : null
+            }
+
+            {
+              searching ? <h2 className="text-lg font-semibold">正在幫你找車位, 請稍候 ...</h2> : null
+            }
+            
+          </div>
+        ) : null
+      }
+      <button className="absolute z-[998] text-black top-6 self-start ml-4 md:self-center px-4 md:px-8 py-4 bg-white hover:bg-gray-300 text-black rounded-lg font-semibold text-sm md:text-lg" onClick={handleNearByAvailableParkingSpots}>搜尋附近停車格</button>
       <Map availableParkingSpots={avaliableParkingSpots} />
     </div>
   );
 }
 
 export default App;
-
-
-
 
 /* 
 完成的事

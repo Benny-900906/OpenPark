@@ -2,6 +2,7 @@ import { useMap } from "react-leaflet";
 import recenterIcon from '../../assets/custom-recenter.svg';
 import userLocationIcon from '../../assets/custom-user-location.svg';
 import { usePositionStore } from "../../stores/usePositionStore";
+import { useLoadingStore } from "../../stores/useLoadingStore";
 
 export const MapCenterButton = ({ position }: {position: [number, number]}) => {
   const map = useMap();
