@@ -34,7 +34,7 @@ const App = () => {
     return () => clearInterval(intervalId); // Clean up on unmount
   }, [fetchToken]);
 
-  
+
   
   const handleTimer = (seconds: number) => {
     setSearchDisabled(true);
@@ -63,8 +63,9 @@ const App = () => {
     setSearching(true);
     setSearchDisabled(true);
 
-    const cityName : string = await getCityFromCoord(userPosition);
+    // const cityName : string = await getCityFromCoord(userPosition);
 
+    const cityName: string = 'Tainan';
     const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, 200);
 
     const validParkingSpots : Array<ParkingSpot> = await getValidParkingSpots(accessToken, cityName, nearBySpotPositions);
