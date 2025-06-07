@@ -41,10 +41,10 @@ export const Map = ({ availableParkingSpots } : { availableParkingSpots? : Array
 
   return (
     <div className="w-full flex justify-center">
-      <MapContainer center={[userPosition.lat, userPosition.lon]} scrollWheelZoom={true} zoom={18} minZoom={16} style={{ height: '80vh', width: '100%' }}>
+      <MapContainer center={[userPosition.lat, userPosition.lon]} scrollWheelZoom={true} zoom={18} minZoom={16} style={{ height: '90vh', width: '100%' }}>
         <MapInit />
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
         />
         <UserMarker />
         {

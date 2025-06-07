@@ -83,17 +83,33 @@ export default App;
 研究 leaflet or openlayer 比較適合這個專案
 implenent marker pinning and onclick to redirect to google maps
 
+implement "update my current geolocation button below recenter feature"
+
+
+
+
+
+
 
 需要完成的事
 
-implement "update my current geolocation button below recenter feature"
+UI 上要 report 獲取多少筆停車格動態
+click on marker 後 pop up 變成一張vertical card 顯示在左下角 （有點像google card那樣）
 
 error handling, 如果fetch不到結果的話 display on UI
+
+loading UI - disable buttons when loading
 
 UI
 - inputText
 - submit button
 - reset button
+
+buttons 設立在 test 旁邊看是要找 停車場（價錢，時間） 還是 路邊停車格
+
+請求冷卻 5-10s （random設定）
+
+計算user 或是 marker 經緯度是在哪一個城市，在function中投入相對的City Props
 
 calculate distance, implement small cards for each parking spot at the bottom of the map <ScrollView>
 
