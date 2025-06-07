@@ -81,7 +81,7 @@ export const ParkingSpotMarker = ({ index, position } : { index: number, positio
         {
             isClicked ? (
                 // refactor this snippet into a SpotOption function component
-                <div ref={popupRef} className="absolute z-[999] bg-gradient-to-r from-white/80 to-white/50 to-white/60 backdrop-blur-md opacity-[90%] rounded-xl p-4 pt-2 pb-6 left-4 bottom-4 flex flex-col items-start gap-5">
+                <div ref={popupRef} className="absolute z-[999] bg-gradient-to-r from-white/80 to-white/50 to-white/60 backdrop-blur-md opacity-[90%] rounded-xl p-4 pt-2 pb-10 left-4 bottom-6 bg:bottom-4 flex flex-col items-start gap-2">
                     <button className="self-end px-2 py-2 rounded-lg text-white" onClick={() => {
                         setIsClicked(false);
                     }}>

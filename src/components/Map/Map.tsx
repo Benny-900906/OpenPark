@@ -41,7 +41,7 @@ export const Map = ({ availableParkingSpots } : { availableParkingSpots? : Array
 
   return (
     <div className="w-full flex justify-center">
-      <MapContainer center={[userPosition.lat, userPosition.lon]} scrollWheelZoom={true} zoom={18} minZoom={16} style={{ height: '100vh', width: '100%' }}>
+      <MapContainer center={[userPosition.lat, userPosition.lon]} scrollWheelZoom={true} zoomControl={false} zoom={18} minZoom={16} style={{ height: '100vh', width: '100%' }}>
         <MapInit />
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
@@ -52,7 +52,7 @@ export const Map = ({ availableParkingSpots } : { availableParkingSpots? : Array
             <ParkingSpotMarker index={index} key={index} position={spot.position} />
           ))
         }
-        <div className="flex flex-col gap-2 absolute right-4 top-4 z-[999]">
+        <div className="flex flex-col gap-2 absolute right-4 top-6 z-[999]">
           <MapUserLocationButton />
           <MapCenterButton position={[userPosition.lat, userPosition.lon]} />
         </div>        

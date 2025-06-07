@@ -53,7 +53,7 @@ const App = () => {
 
   return (
     <div className="flex flex-col gap-10 items-center justify-center">
-      <button className="absolute z-[999] text-black top-6 px-8 py-2 bg-white hover:bg-gray-300 text-black rounded-lg font-semibold" onClick={handleNearByAvailableParkingSpots}>開始尋找附近停車格</button>
+      <button className="absolute z-[999] text-black top-6 self-start ml-4 md:self-center px-4 md:px-8 py-4 bg-white hover:bg-gray-300 text-black rounded-lg font-semibold text-sm md:text-lg" onClick={handleNearByAvailableParkingSpots}>搜尋附近停車格</button>
       <Map availableParkingSpots={avaliableParkingSpots} />
     </div>
   );
