@@ -18,7 +18,7 @@ export const Map = ({ availableParkingSpots } : { availableParkingSpots? : Array
     useEffect(() => {
       if (hasInitialized.current) return;
       hasInitialized.current = true;
-      
+
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           const { latitude, longitude } = pos.coords;
@@ -30,6 +30,7 @@ export const Map = ({ availableParkingSpots } : { availableParkingSpots? : Array
           console.warn('Could not get geolocation, using default.');
         }
       );
+
     }, [])
 
     return null;

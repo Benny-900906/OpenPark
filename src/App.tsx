@@ -8,6 +8,7 @@ import { Position, ParkingSpot } from './interfaces';
 import { useLoadingStore } from './stores/useLoadingStore';
 import { useRequestingTokenStore } from './stores/useRequestingTokenStore';
 import { useSearchingStore } from './stores/useSearchingStore';
+import { getCityFromCoord } from './lib/cityNameService';
  
 const TOKEN_REFRESH_INTERVAL = 4 * 60 * 60 * 1000; // 4 hours auto refetch access token from tdx
 
@@ -18,6 +19,8 @@ const App = () => {
   const fetchToken = useAuthStore((state) => state.fetchToken);
   const accessToken = useAuthStore.getState().token;
   const [avaliableParkingSpots, setAvaliableParkingSpots] = useState<Array<ParkingSpot>>([]);
+  const [searchDisabled, setSearchDisabled] = useState<boolean>(false);
+  const [countdown, setCountdown] = useState<number>(0);
 
   useEffect(() => {
     // Fetch token on mount
@@ -30,7 +33,24 @@ const App = () => {
 
     return () => clearInterval(intervalId); // Clean up on unmount
   }, [fetchToken]);
+
   
+  
+  const handleTimer = (seconds: number) => {
+    setSearchDisabled(true);
+    setCountdown(seconds);
+
+    const intervalId = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(intervalId);
+          setSearchDisabled(false);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }
 
   const handleNearByAvailableParkingSpots = async () => {
 
@@ -41,12 +61,15 @@ const App = () => {
 
     setLoading(true);
     setSearching(true);
+    setSearchDisabled(true);
+
+    const cityName : string = await getCityFromCoord(userPosition);
 
     const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, 200);
 
-    const validParkingSpots : Array<ParkingSpot> = await getValidParkingSpots(accessToken, "Tainan", nearBySpotPositions);
+    const validParkingSpots : Array<ParkingSpot> = await getValidParkingSpots(accessToken, cityName, nearBySpotPositions);
 
-    const availableParkingSpots : Array<ParkingSpot> = await filterAvailableParkingSpots(accessToken, "Tainan", validParkingSpots);
+    const availableParkingSpots : Array<ParkingSpot> = await filterAvailableParkingSpots(accessToken, cityName, validParkingSpots);
 
     setLoading(false);
     setSearching(false);
@@ -54,6 +77,8 @@ const App = () => {
     console.log(availableParkingSpots);
 
     setAvaliableParkingSpots(availableParkingSpots);
+
+    handleTimer(45);
   }
 
   return (
@@ -73,7 +98,9 @@ const App = () => {
           </div>
         ) : null
       }
-      <button className="absolute z-[998] text-black top-6 self-start ml-4 md:self-center px-4 md:px-8 py-4 bg-white hover:bg-gray-300 text-black rounded-lg font-semibold text-sm md:text-lg" onClick={handleNearByAvailableParkingSpots}>搜尋附近停車格</button>
+      <button disabled={searchDisabled} className={`absolute z-[998] text-black top-6 self-start ml-4 md:self-center px-4 md:px-8 py-4 ${searchDisabled ? 'bg-gray-400' : 'bg-white hover:bg-gray-300'} text-black rounded-lg font-semibold text-sm md:text-lg`} onClick={handleNearByAvailableParkingSpots}>
+        {searchDisabled ? `搜尋功能冷卻中 ${countdown}s` : '搜尋附近停車格'}
+      </button>
       <Map availableParkingSpots={avaliableParkingSpots} />
     </div>
   );
@@ -100,22 +127,27 @@ implenent marker pinning and onclick to redirect to google maps
 
 implement "update my current geolocation button below recenter feature"
 
+FIRST PRIORITTY: Responsive UI for iPhones
+
+click on marker 後 pop up 變成一張vertical card 顯示在左下角 （有點像google card那樣）
 
 
 
 
 
 
-需要完成的事
+
+需要完成的事:
+
+特定城市可以找路邊停車格， 有一些只能找停車場
 
 停車格資訊： 車位類型，收費時段，費率，營業時間
 
-FIRST PRIORITTY: Responsive UI for iPhones
 
 電動車用戶 filter
 
 UI 上要 report 獲取多少筆停車格動態
-click on marker 後 pop up 變成一張vertical card 顯示在左下角 （有點像google card那樣）
+
 
 error handling, 如果fetch不到結果的話 display on UI
 
