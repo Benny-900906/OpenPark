@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { MapCenterButton, MapUserLocationButton } from './MapButtons';
+import { MapCenterButton, MapSettingButton, MapUserLocationButton } from './MapButtons';
 import { usePositionStore } from '../../stores/usePositionStore';
 import { ParkingSpot } from '../../interfaces';
 import { ParkingSpotMarker, UserMarker } from './Marker';
@@ -56,7 +56,11 @@ export const Map = ({ availableParkingSpots } : { availableParkingSpots? : Array
         <div className="flex flex-col gap-2 absolute right-4 top-6 z-[998]">
           <MapUserLocationButton />
           <MapCenterButton position={[userPosition.lat, userPosition.lon]} />
-        </div>        
+        </div>     
+
+        <div className="absolute left-4 top-6 z-[998]">
+          <MapSettingButton />
+        </div>   
       </MapContainer>
     </div> 
   );

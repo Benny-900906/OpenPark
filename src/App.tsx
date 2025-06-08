@@ -9,6 +9,7 @@ import { useLoadingStore } from './stores/useLoadingStore';
 import { useRequestingTokenStore } from './stores/useRequestingTokenStore';
 import { useSearchingStore } from './stores/useSearchingStore';
 import { getCityFromCoord } from './lib/cityNameService';
+import { useRangeStore } from './stores/useRangeStore';
  
 const TOKEN_REFRESH_INTERVAL = 4 * 60 * 60 * 1000; // 4 hours auto refetch access token from tdx
 
@@ -69,6 +70,8 @@ const App = () => {
   const handleNearByAvailableParkingSpots = async () => {
 
     const { userPosition } = usePositionStore.getState(); // fetches the freshes userPosition from usePositionStore. 
+    const { selectedDistanceRange } = useRangeStore.getState();
+    const { selectedResultRange } = useRangeStore.getState();
 
     console.log(userPosition.lat, " ");
     console.log(userPosition.lon);
@@ -79,7 +82,7 @@ const App = () => {
 
     const cityName : string = await getCityFromCoord(userPosition);
 
-    const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, 200, 20);
+    const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, selectedDistanceRange, selectedResultRange);
 
     const validParkingSpots : Array<ParkingSpot> = await getValidParkingSpots(accessToken, cityName, nearBySpotPositions);
 
@@ -134,7 +137,7 @@ const App = () => {
           </div>
         ) : null
       }
-      <button disabled={searchDisabled} className={`absolute z-[998] text-black top-6 self-start ml-4 md:self-center px-4 md:px-8 py-4 ${searchDisabled ? 'bg-gray-400' : 'bg-white hover:bg-gray-300'} text-black rounded-lg font-semibold text-sm md:text-lg`} onClick={handleNearByAvailableParkingSpots}>
+      <button disabled={searchDisabled} className={`absolute z-[998] text-black top-6 self-start ml-4 self-center px-4 md:px-8 py-4 text-black rounded-lg font-semibold text-sm md:text-lg ${searchDisabled ? 'bg-gray-400' : 'bg-white hover:bg-gray-300'}`} onClick={handleNearByAvailableParkingSpots}>
         {searchDisabled ? `搜尋功能冷卻中 ${countdown}s` : '搜尋附近停車格'}
       </button>
       <Map availableParkingSpots={avaliableParkingSpots} />
@@ -147,15 +150,13 @@ export default App;
 /* 
 需要完成的事:
 
+更改misleading的icons
+
 停車格資訊： 車位類型，收費時段，費率，營業時間
 
-範圍 toggle 200 350 500
-設定抓取的筆數 10 20 30
-兩種按鈕 - 尋找路邊停車格 尋找停車場 （disable 尋找路邊停車格 if the selected city is not supported) - 特定城市可以找路邊停車格， 有一些只能找停車場
+特定城市可以找路邊停車格， 有一些只能找停車場
 
-
-
-
+導入停車場查詢
 
 完成後開始implement 手機版 RN + EXPO
 */
