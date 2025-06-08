@@ -61,9 +61,12 @@ const App = () => {
     setSearching(true);
     setSearchDisabled(true);
 
+
+
     // 這行code讓手機無法成功進行搜尋
-    // const cityName : string = await getCityFromCoord(userPosition);
-    const cityName: string = 'Tainan';
+    const cityName : string = await getCityFromCoord(userPosition);
+    console.log(cityName);
+    // const cityName: string = 'Tainan';
 
 
 
@@ -113,6 +116,9 @@ export default App;
 /* 
 需要完成的事:
 
+
+error handling, 如果fetch不到結果的話 display on UI
+
 範圍 toggle 100 300 500
 設定抓取的筆數 10 20 30
 城市 toggle 台北 新北 桃園 台中 台南 高雄 屏東 (一登入介面就要求選擇)
@@ -124,7 +130,7 @@ export default App;
 
 UI 上要 report 獲取多少筆停車格動態
 
-error handling, 如果fetch不到結果的話 display on UI
+
 
 
 完成後開始implement 手機版 RN + EXPO
