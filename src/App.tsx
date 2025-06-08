@@ -33,8 +33,6 @@ const App = () => {
 
     return () => clearInterval(intervalId); // Clean up on unmount
   }, [fetchToken]);
-
-
   
   const handleTimer = (seconds: number) => {
     setSearchDisabled(true);
@@ -63,9 +61,12 @@ const App = () => {
     setSearching(true);
     setSearchDisabled(true);
 
+    // 這行code讓手機無法成功進行搜尋
     // const cityName : string = await getCityFromCoord(userPosition);
-
     const cityName: string = 'Tainan';
+
+
+
     const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, 200);
 
     const validParkingSpots : Array<ParkingSpot> = await getValidParkingSpots(accessToken, cityName, nearBySpotPositions);
@@ -110,62 +111,21 @@ const App = () => {
 export default App;
 
 /* 
-完成的事
-
-/v1/Parking/OnStreet/ParkingSpot/NearBy 
-從這裡找到nearByParkingSpots top=30 or 50
-
-/v1/Parking/OnStreet/ParkingSpot/City/{City} 
-從nearByParkingSpots中的 (lat, lon) pairs 中來這裡找到對應的 parkingSpots
-從這裡filter lat and lon 之後會得到對應的 ParkingSpotIDs (因為NearBy的ParkingSpotID format ！= ParkingSpotAvailaility的ParkingSpotID format) 
-
-/v1/Parking/OnStreet/ParkingSpotAvailability/City/{City}
-取得 ParkingSpotIDs 之後，來這裡 filter SpotStatus == 2 
-回傳結果
-
-研究 leaflet or openlayer 比較適合這個專案
-implenent marker pinning and onclick to redirect to google maps
-
-implement "update my current geolocation button below recenter feature"
-
-FIRST PRIORITTY: Responsive UI for iPhones
-
-click on marker 後 pop up 變成一張vertical card 顯示在左下角 （有點像google card那樣）
-
-
-
-
-
-
-
 需要完成的事:
+
+範圍 toggle 100 300 500
+設定抓取的筆數 10 20 30
+城市 toggle 台北 新北 桃園 台中 台南 高雄 屏東 (一登入介面就要求選擇)
+兩種按鈕 - 尋找路邊停車格 尋找停車場 （disable 尋找路邊停車格 if the selected city is not supported) 
 
 特定城市可以找路邊停車格， 有一些只能找停車場
 
 停車格資訊： 車位類型，收費時段，費率，營業時間
 
-
-電動車用戶 filter
-
 UI 上要 report 獲取多少筆停車格動態
-
 
 error handling, 如果fetch不到結果的話 display on UI
 
-loading UI - disable buttons when loading
-
-UI
-- inputText
-- submit button
-- reset button
-
-buttons 設立在 test 旁邊看是要找 停車場（價錢，時間） 還是 路邊停車格
-
-請求冷卻 60s （random設定）
-
-計算user 或是 marker 經緯度是在哪一個城市，在function中投入相對的City Props
-
-calculate distance, implement small cards for each parking spot at the bottom of the map <ScrollView>
 
 完成後開始implement 手機版 RN + EXPO
 */

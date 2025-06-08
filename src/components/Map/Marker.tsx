@@ -2,6 +2,7 @@ import { Marker, Popup } from "react-leaflet";
 import { Icon } from 'leaflet';
 import { Position } from "../../interfaces";
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import customUserIcon from '../../assets/custom-user-marker.svg';
 import customSpotIcon from '../../assets/custom-spot-marker.svg';
 import customSpotFocusedIcon from '../../assets/custom-spot-marker-focused.svg';
 import customCancelIcon from '../../assets/custom-cancel.svg';
@@ -36,15 +37,15 @@ export const ParkingSpotMarker = ({ index, position } : { index: number, positio
     const customSpotMarker = new Icon({
         iconUrl: customSpotIcon,
         shadowUrl: markerShadownIcon,
-        iconSize: [30, 30],       // width, height in pixels
-        iconAnchor: [16, 32]
+        iconSize: [20, 20],       // width, height in pixels
+        iconAnchor: [12, 20]
     })
 
     const customSpotFocusedMarker = new Icon({
         iconUrl: customSpotFocusedIcon,
         shadowUrl: markerShadownIcon,
-        iconSize: [32, 32],       // width, height in pixels
-        iconAnchor: [16, 32]
+        iconSize: [22, 22],       // width, height in pixels
+        iconAnchor: [12, 20]
     })
 
     // close the spotOption when clicked outside
