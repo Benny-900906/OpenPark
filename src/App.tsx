@@ -20,6 +20,7 @@ const App = () => {
   const accessToken = useAuthStore.getState().token;
   const [avaliableParkingSpots, setAvaliableParkingSpots] = useState<Array<ParkingSpot>>([]);
   const [searchDisabled, setSearchDisabled] = useState<boolean>(false);
+  const [noResult, setNoResult] = useState<boolean>(false);
   const [countdown, setCountdown] = useState<number>(0);
 
   useEffect(() => {
@@ -33,6 +34,13 @@ const App = () => {
 
     return () => clearInterval(intervalId); // Clean up on unmount
   }, [fetchToken]);
+
+  const handleNoResult = (seconds: number) => {
+    setNoResult(true);
+    setTimeout(() => {
+      setNoResult(false);
+    }, seconds*1000); 
+  }
   
   const handleTimer = (seconds: number) => {
     setSearchDisabled(true);
@@ -61,16 +69,9 @@ const App = () => {
     setSearching(true);
     setSearchDisabled(true);
 
-
-
-    // 這行code讓手機無法成功進行搜尋
     const cityName : string = await getCityFromCoord(userPosition);
-    console.log(cityName);
-    // const cityName: string = 'Tainan';
 
-
-
-    const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, 200);
+    const nearBySpotPositions : Array<Position> = await getNearBySpotPositions(accessToken, userPosition.lat, userPosition.lon, 200, 20);
 
     const validParkingSpots : Array<ParkingSpot> = await getValidParkingSpots(accessToken, cityName, nearBySpotPositions);
 
@@ -83,11 +84,24 @@ const App = () => {
 
     setAvaliableParkingSpots(availableParkingSpots);
 
-    handleTimer(45);
+    if (availableParkingSpots.length === 0) {
+      handleNoResult(3);
+      handleTimer(20);
+    } else {
+      handleTimer(45);
+    }
   }
 
   return (
     <div className="flex flex-col gap-10 items-center justify-center">
+      {/* error handling */}
+      {
+        noResult ? (
+          <div className="absolute z-[999] bg-white p-8 rounded-xl">
+            <h2 className="text-lg font-semibold">什麼鳥地方, 找不到附近的停車位</h2>
+          </div>
+        ) : null
+      }
       {
         loading ? (
           <div className="absolute inset-0 z-[999] bg-white/60 backdrop-blur-sm opacity-50 flex flex-col gap-2 items-center justify-center">
@@ -119,7 +133,7 @@ export default App;
 
 error handling, 如果fetch不到結果的話 display on UI
 
-範圍 toggle 100 300 500
+範圍 toggle 200 350 500
 設定抓取的筆數 10 20 30
 城市 toggle 台北 新北 桃園 台中 台南 高雄 屏東 (一登入介面就要求選擇)
 兩種按鈕 - 尋找路邊停車格 尋找停車場 （disable 尋找路邊停車格 if the selected city is not supported) 
