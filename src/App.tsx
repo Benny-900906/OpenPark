@@ -21,6 +21,7 @@ const App = () => {
   const [avaliableParkingSpots, setAvaliableParkingSpots] = useState<Array<ParkingSpot>>([]);
   const [searchDisabled, setSearchDisabled] = useState<boolean>(false);
   const [noResult, setNoResult] = useState<boolean>(false);
+  const [hasResult, setHasResult] = useState<boolean>(false);
   const [countdown, setCountdown] = useState<number>(0);
 
   useEffect(() => {
@@ -40,6 +41,13 @@ const App = () => {
     setTimeout(() => {
       setNoResult(false);
     }, seconds*1000); 
+  }
+
+  const handleHasResult = (seconds: number) => {
+    setHasResult(true);
+    setTimeout(() => {
+      setHasResult(false);
+    }, seconds*1000);
   }
   
   const handleTimer = (seconds: number) => {
@@ -88,6 +96,7 @@ const App = () => {
       handleNoResult(3);
       handleTimer(20);
     } else {
+      handleHasResult(1.5);
       handleTimer(45);
     }
   }
@@ -97,8 +106,16 @@ const App = () => {
       {/* error handling */}
       {
         noResult ? (
-          <div className="absolute z-[999] bg-white p-8 rounded-xl">
+          <div className="absolute z-[999] bg-gradient-to-r from-white/80 to-white/50 to-white/60 backdrop-blur-md opacity-[90%] p-8 rounded-xl flex flex-col items-center justify-center gap-2">
             <h2 className="text-lg font-semibold">什麼鳥地方, 找不到附近的停車位</h2>
+            <h2 className="text-lg font-semibold">這種地方隨便停就好了</h2>
+          </div>
+        ) : null
+      }
+      {
+        hasResult ? (
+          <div className="absolute z-[999] bg-gradient-to-r from-white/80 to-white/50 to-white/60 backdrop-blur-md opacity-[90%] p-8 rounded-xl flex flex-col items-center justify-center gap-2">
+            <h2 className="text-lg font-semibold">{`你附近有${avaliableParkingSpots.length}個停車位`}</h2>
           </div>
         ) : null
       }
@@ -130,19 +147,12 @@ export default App;
 /* 
 需要完成的事:
 
-
-error handling, 如果fetch不到結果的話 display on UI
+停車格資訊： 車位類型，收費時段，費率，營業時間
 
 範圍 toggle 200 350 500
 設定抓取的筆數 10 20 30
-城市 toggle 台北 新北 桃園 台中 台南 高雄 屏東 (一登入介面就要求選擇)
-兩種按鈕 - 尋找路邊停車格 尋找停車場 （disable 尋找路邊停車格 if the selected city is not supported) 
+兩種按鈕 - 尋找路邊停車格 尋找停車場 （disable 尋找路邊停車格 if the selected city is not supported) - 特定城市可以找路邊停車格， 有一些只能找停車場
 
-特定城市可以找路邊停車格， 有一些只能找停車場
-
-停車格資訊： 車位類型，收費時段，費率，營業時間
-
-UI 上要 report 獲取多少筆停車格動態
 
 
 
