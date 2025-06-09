@@ -41,7 +41,7 @@ export const getValidParkingSpots = async (accessToken: string | null, city: str
     console.log("No Spot Positions Provided");
     return [];
   }
-  
+
   if (accessToken) {
 
     try {
