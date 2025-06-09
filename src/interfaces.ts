@@ -4,8 +4,13 @@ export interface Position {
 }
 
 export interface ParkingSpot {
+    parkingSegmentID : string;
+    parkingSegmentName: string;
     parkingSpotID : string;
     position : Position;
+    parkingType : string;
+    fareRate: string;
+    openingHours: string;
 }
 
 export interface PositionState {

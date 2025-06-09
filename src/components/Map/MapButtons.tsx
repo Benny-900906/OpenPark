@@ -18,9 +18,9 @@ export const MapCenterButton = ({ position }: {position: [number, number]}) => {
   const map = useMap();
     
   return (
-    <button className="bg-black hover:bg-gray-500 px-2 py-2 md:px-2 md:py-4 rounded shadow" onClick={() => { map.setView(position, map.getZoom()); }}>
-      <img src={recenterIcon} alt="icon" className="w-6 h-6 m-auto md:mb-2" />
-      <span className="font-semibold text-white text-xs hidden md:block">地圖聚焦目前座標</span>
+    <button className="bg-black hover:bg-gray-500 p-2 rounded shadow" onClick={() => { map.setView(position, map.getZoom()); }}>
+      <img src={recenterIcon} alt="icon" className="w-6 h-6 m-auto mb-2" />
+      <span className="font-semibold text-white text-xs">聚焦座標</span>
     </button>
   );
 }
@@ -46,9 +46,9 @@ export const MapUserLocationButton = () => {
   }
 
   return (
-    <button className="bg-black hover:bg-gray-500 px-2 py-2 md:px-2 md:py-4 rounded shadow" onClick={handleUserCurrentLocation}>
-      <img src={userLocationIcon} alt="icon" className="w-6 h-6 m-auto md:mb-2" />
-      <span className="font-semibold text-white text-xs hidden md:block">更新座標至目前位置</span>
+    <button className="bg-black hover:bg-gray-500 p-2 rounded shadow" onClick={handleUserCurrentLocation}>
+      <img src={userLocationIcon} alt="icon" className="w-6 h-6 m-auto mb-2" />
+      <span className="font-semibold text-white text-xxs text-xs">更新位置</span>
     </button>
     );
 }

@@ -50,7 +50,7 @@ export const Map = ({ availableParkingSpots } : { availableParkingSpots? : Array
         <UserMarker />
         {
           availableParkingSpots?.map((spot, index) => (
-            <ParkingSpotMarker index={index} key={index} position={spot.position} />
+            <ParkingSpotMarker index={index} key={index} spot={spot} />
           ))
         }
         <div className="flex flex-col gap-2 absolute right-4 top-6 z-[998]">

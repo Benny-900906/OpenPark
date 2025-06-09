@@ -3,7 +3,7 @@ import { useAuthStore } from './stores/useAuthStore';
 import { useEffect } from 'react';
 import { Map } from './components/Map/Map';
 import { usePositionStore } from './stores/usePositionStore';
-import { getNearBySpotPositions, getValidParkingSpots, filterAvailableParkingSpots } from './lib/parkingSpotServices';
+import { getNearBySpotPositions, getValidParkingSpots, filterAvailableParkingSpots, completeParkingSpotInfos } from './lib/parkingSpotServices';
 import { Position, ParkingSpot } from './interfaces';
 import { useLoadingStore } from './stores/useLoadingStore';
 import { useRequestingTokenStore } from './stores/useRequestingTokenStore';
@@ -88,14 +88,14 @@ const App = () => {
 
     const availableParkingSpots : Array<ParkingSpot> = await filterAvailableParkingSpots(accessToken, cityName, validParkingSpots);
 
+    const completeParkingSpots : Array<ParkingSpot> = await completeParkingSpotInfos(accessToken, cityName, availableParkingSpots);
+
     setLoading(false);
     setSearching(false);
 
-    console.log(availableParkingSpots);
+    setAvaliableParkingSpots(completeParkingSpots);
 
-    setAvaliableParkingSpots(availableParkingSpots);
-
-    if (availableParkingSpots.length === 0) {
+    if (completeParkingSpots.length === 0) {
       handleNoResult(3);
       handleTimer(20);
     } else {
@@ -150,19 +150,7 @@ export default App;
 /* 
 需要完成的事:
 
-停車位資訊最後更新時間：
-/v1/Parking/OnStreet/ParkingSpotAvailability/City/{City} res.data.DataCollectTime : string
-
-停車格資訊： 車位類型，收費時段，費率
-
-車位類型 : /v1/Parking/OnStreet/ParkingSpot/City/{City}
-[0:'所有停車位類型',1:'自小客車位',2:'機車位',3:'重型機車位',4:'腳踏車位',5:'大型車位',6:'小型巴士位',7:'孕婦及親子專用車位',8:'婦女車位',9:'身心障礙汽車車位',10:'身心障礙機車車位',11:'電動汽車車位',12:'電動機車車位',13:'復康巴士',14:'月租機車位',15:'月租汽車位',16:'季租機車位',17:'季租汽車位',18:'半年租機車位',19:'半年租汽車位',20:'年租機車位',21:'年租汽車位',22:'租賃機車位',23:'租賃汽車位',24:'卸貨車位',25:'計程車位',26:'夜間安心停車位',27:'臨時停車',28:'專用停車',29:'預約停車',254:'其他',255:'未知']
-
-收費時段： /v1/Parking/OnStreet/ParkingSegmentChargeTime/City/{City}  with filter = ParkingSegmentID eq '0953'
-費率： /v1/Parking/OnStreet/ParkingSegment/City/{City}  with  filter = ParkingSegmentID eq '0953'
-
-
-特定城市可以找路邊停車格， 有一些只能找停車場 （感覺可以用
+特定城市可以找路邊停車格， 有一些只能找停車場 
 
 導入停車場查詢
 
