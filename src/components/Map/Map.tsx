@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { MapContainer, TileLayer, useMap, useMapEvent } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapCenterButton, MapSettingButton, MapUserLocationButton } from './MapButtons';
 import { usePositionStore } from '../../stores/usePositionStore';
@@ -36,29 +36,14 @@ export const Map = ({ availableParkingSpots } : { availableParkingSpots? : Array
     return null;
   }
 
-  const LongPressMarkerControl = () => {
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-    useMapEvent('mousedown', (e) => {
-      timeoutRef.current = setTimeout(() => {
-        // Long press triggered, move marker
+  const DoubleTapMarkerControl = () => {
+    useMapEvents({
+      dblclick(e) {
         setUserPosition({lat: e.latlng.lat, lon: e.latlng.lng});
-      }, 1000); // 1000ms for long press
-    });
-
-    useMapEvent('mouseup', () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
       }
     });
 
-    useMapEvent('mouseout', () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-  });
-
-  return null;
+    return null;
   }
   
   useEffect(() => {
@@ -67,9 +52,9 @@ export const Map = ({ availableParkingSpots } : { availableParkingSpots? : Array
 
   return (
     <div className="w-full flex justify-center"> 
-      <MapContainer center={[userPosition.lat, userPosition.lon]} scrollWheelZoom={true} zoomControl={false} zoom={18} minZoom={12} style={{ height: '100vh', width: '100%' }}>
+      <MapContainer center={[userPosition.lat, userPosition.lon]} scrollWheelZoom={true} zoomControl={false} zoom={18} minZoom={12} doubleClickZoom={false} style={{ height: '100vh', width: '100%' }}>
         <MapInit />
-        <LongPressMarkerControl />
+        <DoubleTapMarkerControl />
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
         />

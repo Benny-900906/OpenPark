@@ -20,7 +20,13 @@ export const UserMarker = () => {
       });
 
     return (
-        <Marker position={[userPosition.lat, userPosition.lon]} icon={customerUserMarker} draggable={false}></Marker>
+        <Marker position={[userPosition.lat, userPosition.lon]} icon={customerUserMarker} draggable={true} eventHandlers={{
+            dragend: (e) => {
+              const marker = e.target;
+              const newPos = marker.getLatLng();
+              setUserPosition({lat: newPos.lat, lon: newPos.lng});
+            }
+          }}></Marker>
     )
 }
 
