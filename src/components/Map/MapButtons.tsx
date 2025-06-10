@@ -20,7 +20,7 @@ export const MapCenterButton = ({ position }: {position: [number, number]}) => {
   return (
     <button className="bg-black hover:bg-gray-500 p-2 rounded shadow" onClick={() => { map.setView(position, map.getZoom()); }} onContextMenu={(e) => e.preventDefault()}>
       <img src={recenterIcon} alt="icon" className="w-6 h-6 m-auto mb-2" />
-      <span className="font-semibold text-white text-xs">聚焦座標</span>
+      <span className="font-semibold text-white text-xs" onContextMenu={(e) => e.preventDefault()}>聚焦座標</span>
     </button>
   );
 }
