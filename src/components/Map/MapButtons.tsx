@@ -108,7 +108,7 @@ export const MapSettingButton = () => {
           isClicked ? (
             <div className="mt-2 bg-black p-6 pb-8 rounded-lg flex flex-col gap-8">
               {
-                options.map((item) => <SettingOptions title={item.title} options={item.options} handleSelect={item.handleSelect} selectState={item.selectState} unit={item.unit} />)
+                options.map((item) => <SettingOptions key={item.title} title={item.title} options={item.options} handleSelect={item.handleSelect} selectState={item.selectState} unit={item.unit} />)
               }
               <button className="mt-2 p-4 text-white hover:text-gray-500 text-sm font-semibold" onClick={() => { setIsClicked(false) }}>保存設定</button>
             </div>

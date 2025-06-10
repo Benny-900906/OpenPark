@@ -13,6 +13,16 @@ export interface ParkingSpot {
     openingHours: string;
 }
 
+export interface ParkingLot {
+    parkingLotID : string;
+    parkingLotName : string;
+    parkingLotType : string;
+    fareRate : string;
+    address : string;
+    position : Position;
+    liveAvailableSpaces : number;
+}
+
 export interface PositionState {
     userPosition: Position;
     setUserPosition: (pos: Position) => void;

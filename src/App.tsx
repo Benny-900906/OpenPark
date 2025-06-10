@@ -149,10 +149,5 @@ export default App;
 
 /* 
 需要完成的事:
-
-特定城市可以找路邊停車格， 有一些只能找停車場 
-
-導入停車場查詢
-
-完成後開始implement 手機版 RN + EXPO
+implement 手機版 RN + EXPO
 */
