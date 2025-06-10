@@ -18,7 +18,7 @@ export const MapCenterButton = ({ position }: {position: [number, number]}) => {
   const map = useMap();
     
   return (
-    <button className="bg-black hover:bg-gray-500 p-2 rounded shadow" onClick={() => { map.setView(position, map.getZoom()); }}>
+    <button className="bg-black hover:bg-gray-500 p-2 rounded shadow" onClick={() => { map.setView(position, map.getZoom()); }} onContextMenu={(e) => e.preventDefault()}>
       <img src={recenterIcon} alt="icon" className="w-6 h-6 m-auto mb-2" />
       <span className="font-semibold text-white text-xs">聚焦座標</span>
     </button>
@@ -46,7 +46,7 @@ export const MapUserLocationButton = () => {
   }
 
   return (
-    <button className="bg-black hover:bg-gray-500 p-2 rounded shadow" onClick={handleUserCurrentLocation}>
+    <button className="bg-black hover:bg-gray-500 p-2 rounded shadow" onClick={handleUserCurrentLocation} onContextMenu={(e) => e.preventDefault()}>
       <img src={userLocationIcon} alt="icon" className="w-6 h-6 m-auto mb-2" />
       <span className="font-semibold text-white text-xxs text-xs">更新位置</span>
     </button>
@@ -101,7 +101,7 @@ export const MapSettingButton = () => {
 
     return (
       <div>
-        <button className="bg-black hover:bg-gray-500 px-2 py-2 md:px-4 md:py-4 rounded shadow" onClick={() => { setIsClicked(!isClicked) }}>
+        <button className="bg-black hover:bg-gray-500 px-2 py-2 md:px-4 md:py-4 rounded shadow" onClick={() => { setIsClicked(!isClicked) }} onContextMenu={(e) => e.preventDefault()}>
           <img src={settingIcon} alt="icon" className="w-6 h-6 m-auto" />
         </button>
         {
