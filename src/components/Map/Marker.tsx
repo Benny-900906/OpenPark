@@ -2,7 +2,6 @@ import { Marker, Popup } from "react-leaflet";
 import { Icon } from 'leaflet';
 import { ParkingSpot, Position } from "../../interfaces";
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import customUserIcon from '../../assets/custom-user-marker.svg';
 import customSpotIcon from '../../assets/custom-spot-marker.svg';
 import customSpotFocusedIcon from '../../assets/custom-spot-marker-focused.svg';
 import customCancelIcon from '../../assets/custom-cancel.svg';
@@ -21,13 +20,7 @@ export const UserMarker = () => {
       });
 
     return (
-        <Marker position={[userPosition.lat, userPosition.lon]} icon={customerUserMarker} draggable={true} eventHandlers={{
-            dragend: (e) => {
-              const marker = e.target;
-              const newPos = marker.getLatLng();
-              setUserPosition({lat: newPos.lat, lon: newPos.lng});
-            }
-          }}></Marker>
+        <Marker position={[userPosition.lat, userPosition.lon]} icon={customerUserMarker} draggable={false}></Marker>
     )
 }
 
