@@ -49,7 +49,7 @@ export const Map = ({ availableParkingSpots } : { availableParkingSpots? : Array
   useEffect(() => {
     console.log(userPosition);
   }, [userPosition])
-
+ 
   return (
     <div className="w-full flex justify-center"> 
       <MapContainer center={[userPosition.lat, userPosition.lon]} scrollWheelZoom={true} zoomControl={false} zoom={18} minZoom={12} doubleClickZoom={false} style={{ height: '100vh', width: '100%' }}>
