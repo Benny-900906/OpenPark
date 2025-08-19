@@ -7,7 +7,7 @@ export const getCityFromCoord = async (position : Position) : Promise<string> =>
   let cityName = '';
   if (res) {
     cityName = res.data?.principalSubdivision?.replace(' ', '');
-    if (cityName == 'Pingtung') {
+    if (cityName === 'Pingtung') {
       cityName = 'PingtungCounty';
     }
   } else {
