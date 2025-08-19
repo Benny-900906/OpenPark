@@ -1,46 +1,49 @@
-# Getting Started with Create React App
+# OpenCut
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+OpenPark is an Open Source Application for finding nearby parking spots in major Taiwanese cities (Tainan, Taichung, New Taipei, and Taipei). It uses the [Taiwan Transportation Data eXchange (TDX)](https://tdx.transportdata.tw/) APIs to obtain real‑time on‑street parking information.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Search for available on-street parking spaces around your current location.
+- Supports multiple cities, including Tainan, PingTung, Taipei, and NewTaipei.
+- View parking details such as rates, opening hours, and road segments.
+- Dark theme with settings for search range and result count.
+- Integrates Google Maps for navigation to a selected spot.
 
-### `npm start`
+## Requirements
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Node.js and npm
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Environment Variables
 
-### `npm test`
+Create a `.env` file in the project root containing your TDX credentials:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+REACT_APP_TDX_CLIENT_ID=your_client_id
+REACT_APP_TDX_CLIENT_SECRET=your_client_secret
+REACT_APP_TDX_TOKEN_URL=https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token
+```
 
-### `npm run build`
+These values are loaded in `lib/tdxServices.tsx` when requesting an access token【F:lib/tdxServices.tsx†L1-L27】.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+npx run start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How It Works
 
-### `npm run eject`
+1. On launch, the app fetches an access token from TDX and refreshes it every four hours【F:app/(root)/(tabs)/index.tsx†L6-L21】.
+2. When searching for parking, the app obtains your city name from coordinates and queries TDX for nearby parking spots【F:components/Home/MapButtons.tsx†L161-L170】.
+3. Available spots are filtered and enriched with rate and time information before being displayed on the map【F:lib/parkingSpotServices.tsx†L90-L200】.
+4. Tap a parking marker to view details in a bottom sheet
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Styling
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Tailwind CSS is integrated through NativeWind. Styles are defined in `app/global.css` and processed using the custom Metro configuration【F:metro.config.js†L1-L18】.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## License
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project is provided as-is for demonstration purposes and is not licensed for commercial use.
