@@ -1,6 +1,6 @@
 # OpenPark
 
-OpenPark is an Open Source Application for finding nearby parking spots in major Taiwanese cities (Tainan, Taichung, New Taipei, and Taipei). It uses the [Taiwan Transportation Data eXchange (TDX)](https://tdx.transportdata.tw/) APIs to obtain real‑time on‑street parking information.
+OpenPark is an Application for finding nearby parking spots in major Taiwanese cities (Tainan, Taichung, New Taipei, and Taipei). It uses the [Taiwan Transportation Data eXchange (TDX)](https://tdx.transportdata.tw/) APIs to obtain real‑time on‑street parking information.
 
 ## Features
 
